@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Crea — Sistemas de adquisición para negocios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1330;
+    --ink-2:#141E42;
+    --ink-line:#28355C;
+    --paper:#EAF0F7;
+    --paper-2:#D7E1F0;
+    --graphite:#4F5B76;
+    --ink-text:#101B33;
+    --signal:#F5A623;
+    --signal-dim:#B97A12;
+    --circuit:#29C7F0;
+    --cta:#3DA35D;
+    --cta-hover:#4CBE6D;
+    --white:#F5F7FA;
+    --radius:2px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--white);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--signal);
+    display:flex;
+    align-items:center;
+    gap:0.6em;
+    margin-bottom:1.1em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;
+    height:1px;
+    background:var(--signal);
+    display:inline-block;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,20,27,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    letter-spacing:-0.01em;
+    display:flex; align-items:center; gap:10px;
+  }
+  /* Espacio reservado para el logo real. Sube un archivo cuadrado de 500x500px
+     (PNG con fondo transparente) y reemplaza el atributo src de .logo-img más abajo. */
+  .logo-img{
+    width:34px; height:34px;
+    border-radius:7px;
+    object-fit:cover;
+    flex-shrink:0;
+  }
+  .logo-mark{
+    width:9px; height:9px;
+    background:var(--signal);
+    border-radius:50%;
+    box-shadow:0 0 0 3px rgba(245,166,35,0.18);
+  }
+  .nav-links{
+    display:flex; gap:34px;
+    font-size:0.92rem;
+    color:#B9C2CC;
+  }
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{
+    background:var(--cta);
+    color:var(--white);
+    font-weight:600;
+    font-size:0.88rem;
+    padding:10px 20px;
+    border-radius:var(--radius);
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--cta-hover);}
+  .burger{display:none;}
+  @media(max-width:860px){
+    .nav-links{display:none;}
+    nav{padding:16px 20px;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 0 40px;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(245,166,35,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(41,199,240,0.10), transparent 60%);
+  }
+  .hero-inner{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .hero h1{
+    font-size:clamp(2.1rem, 4.6vw, 3.6rem);
+    max-width:15ch;
+    margin-bottom:26px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--signal);
+  }
+  .hero p.lead{
+    max-width:52ch;
+    font-size:1.08rem;
+    color:#C7CED6;
+    margin-bottom:36px;
+  }
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:70px;}
+  .btn-primary{
+    background:var(--cta);
+    color:var(--white);
+    font-weight:600;
+    padding:15px 26px;
+    border-radius:var(--radius);
+    font-size:0.96rem;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn-primary:hover{background:var(--cta-hover); transform:translateY(-1px);}
+  .btn-ghost{
+    border:1px solid var(--ink-line);
+    color:var(--white);
+    padding:15px 26px;
+    border-radius:var(--radius);
+    font-size:0.96rem;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-ghost:hover{border-color:var(--circuit); background:rgba(41,199,240,0.10);}
+
+  /* ---------- CIRCUIT DIAGRAM ---------- */
+  .circuit-box{
+    border:1px solid var(--ink-line);
+    background:rgba(255,255,255,0.015);
+    border-radius:4px;
+    padding:34px 24px 22px;
+  }
+  .circuit-box svg{width:100%; height:auto;}
+  .node-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    fill:#8B96A2;
+    letter-spacing:0.06em;
+  }
+  .node-label.on{fill:var(--white);}
+  .node-sub{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:10.5px;
+    fill:#647080;
+  }
+  .node-circle{fill:var(--ink); stroke:var(--ink-line); stroke-width:1.5;}
+  .node-circle.active{stroke:var(--signal);}
+  .circuit-path{
+    fill:none;
+    stroke:var(--ink-line);
+    stroke-width:1.5;
+  }
+  .pulse-dot{fill:var(--signal); filter:drop-shadow(0 0 6px rgba(245,166,35,0.9));}
+  .pulse-glow{
+    animation:pulseglow 4s linear infinite;
+  }
+  @keyframes pulseglow{
+    0%,100%{opacity:.35;}
+    50%{opacity:1;}
+  }
+
+  /* ---------- SECTION SHELLS ---------- */
+  section{padding:90px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.3rem);}
+  .on-paper{background:var(--paper); color:var(--ink-text);}
+  .on-paper .eyebrow{color:var(--signal-dim);}
+  .on-paper .eyebrow::before{background:var(--signal-dim);}
+
+  /* ---------- PROBLEM ---------- */
+  .pain-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--ink-line);
+    border:1px solid var(--paper-2);
+  }
+  .pain-card{
+    background:var(--paper);
+    padding:34px 28px;
+  }
+  .pain-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--signal-dim);
+    margin-bottom:16px;
+    display:block;
+  }
+  .pain-card h3{font-size:1.15rem; margin-bottom:10px; color:var(--ink-text);}
+  .pain-card p{font-size:0.94rem; color:var(--graphite);}
+  @media(max-width:860px){
+    .pain-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- SERVICES ---------- */
+  .svc-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--ink-line);
+    border:1px solid var(--ink-line);
+  }
+  .svc-card{
+    background:var(--ink);
+    padding:32px 24px;
+    min-height:230px;
+    display:flex; flex-direction:column;
+  }
+  .svc-icon{
+    width:34px; height:34px;
+    border:1px solid var(--circuit);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:22px;
+    color:var(--circuit);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+  }
+  .svc-card h3{font-size:1.05rem; margin-bottom:10px;}
+  .svc-card p{font-size:0.88rem; color:#9AA5B1; flex-grow:1;}
+  @media(max-width:900px){
+    .svc-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:560px){
+    .svc-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:28px;
+    position:relative;
+  }
+  .process-list::before{
+    content:"";
+    position:absolute;
+    top:26px; left:0; right:0;
+    height:1px;
+    background:repeating-linear-gradient(to right, var(--signal-dim) 0 6px, transparent 6px 12px);
+    z-index:0;
+  }
+  .proc-item{position:relative; z-index:1;}
+  .proc-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    width:52px; height:52px;
+    border:1px solid var(--signal-dim);
+    background:var(--paper);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px;
+    color:var(--ink-text);
+    font-weight:500;
+  }
+  .proc-item h3{font-size:1.02rem; margin-bottom:8px; color:var(--ink-text);}
+  .proc-item p{font-size:0.88rem; color:var(--graphite);}
+  @media(max-width:900px){
+    .process-list{grid-template-columns:1fr 1fr; row-gap:44px;}
+    .process-list::before{display:none;}
+  }
+  @media(max-width:560px){
+    .process-list{grid-template-columns:1fr;}
+  }
+
+  /* ---------- STATS ---------- */
+  .stats-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--ink-line);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .stat{
+    padding:40px 24px;
+    text-align:left;
+    border-right:1px solid var(--ink-line);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:2.4rem;
+    color:var(--circuit);
+    font-weight:600;
+    display:block;
+    margin-bottom:8px;
+  }
+  .stat .label{font-size:0.86rem; color:#9AA5B1;}
+  @media(max-width:700px){
+    .stats-row{grid-template-columns:1fr;}
+    .stat{border-right:none; border-bottom:1px solid var(--ink-line);}
+  }
+
+  /* ---------- COMPARISON ---------- */
+  table.compare{
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.92rem;
+  }
+  table.compare th, table.compare td{
+    padding:18px 20px;
+    text-align:left;
+    border-bottom:1px solid var(--paper-2);
+    vertical-align:top;
+  }
+  table.compare thead th{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.74rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--graphite);
+    border-bottom:1px solid var(--ink-text);
+  }
+  table.compare td:first-child, table.compare th:first-child{
+    color:var(--graphite);
+    width:22%;
+  }
+  table.compare .col-us{
+    background:rgba(245,166,35,0.10);
+    font-weight:500;
+    color:var(--ink-text);
+  }
+  @media(max-width:700px){
+    table.compare{font-size:0.82rem;}
+    table.compare th, table.compare td{padding:12px 10px;}
+  }
+
+  /* ---------- CTA BANNER ---------- */
+  .banner{
+    background:var(--ink-2);
+    color:var(--white);
+    padding:70px 0;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .banner::before{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse 600px 400px at 50% 0%, rgba(41,199,240,0.12), transparent 65%);
+    pointer-events:none;
+  }
+  .banner .wrap{position:relative;}
+  .banner h2{font-size:clamp(1.5rem,3.4vw,2.2rem); margin-bottom:22px;}
+  .banner .scarcity{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    letter-spacing:0.06em;
+    color:var(--signal);
+    margin-top:22px;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{
+    border-bottom:1px solid var(--paper-2);
+  }
+  .faq-q{
+    width:100%;
+    background:none;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 0;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.02rem;
+    font-weight:500;
+    color:var(--ink-text);
+    text-align:left;
+  }
+  .faq-q .plus{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:1.3rem;
+    color:var(--signal-dim);
+    transition:transform .2s ease;
+  }
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .28s ease;
+  }
+  .faq-a p{padding:0 0 22px; color:var(--graphite); font-size:0.94rem; max-width:65ch;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:56px 0 34px;
+    border-top:1px solid var(--ink-line);
+  }
+  .foot-grid{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px;
+    margin-bottom:40px;
+  }
+  .foot-brand p{color:#8B96A2; font-size:0.88rem; max-width:34ch; margin-top:12px;}
+  .foot-cols{display:flex; gap:60px;}
+  .foot-col h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--signal);
+    margin-bottom:14px;
+  }
+  .foot-col a{
+    display:block;
+    color:#9AA5B1;
+    font-size:0.9rem;
+    margin-bottom:10px;
+  }
+  .foot-col a:hover{color:var(--white);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    padding-top:24px;
+    border-top:1px solid var(--ink-line);
+    font-size:0.8rem;
+    color:#5C6771;
+  }
+  .foot-legal{display:flex; gap:20px; flex-wrap:wrap;}
+  .foot-legal a{color:#5C6771; font-size:0.8rem;}
+  .foot-legal a:hover{color:var(--white);}
+
+  /* ---------- AUDIT FORM ---------- */
+  .audit-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    align-items:start;
+  }
+  .audit-copy h2{
+    font-size:clamp(1.5rem,3vw,2.1rem);
+    margin:16px 0 16px;
+  }
+  .audit-copy p{color:#B9C2CC; max-width:42ch; font-size:0.98rem;}
+  .audit-form{
+    background:var(--ink-2);
+    border:1px solid var(--ink-line);
+    border-radius:4px;
+    padding:34px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  .audit-form label{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#9AA5B1;
+  }
+  .audit-form input, .audit-form select{
+    background:var(--ink);
+    border:1px solid var(--ink-line);
+    color:var(--white);
+    padding:13px 14px;
+    border-radius:2px;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:0.95rem;
+  }
+  .audit-form select{appearance:none;}
+  .audit-form input:focus, .audit-form select:focus{outline:none; border-color:var(--circuit);}
+  .audit-consent{
+    flex-direction:row !important;
+    align-items:flex-start;
+    gap:10px !important;
+    text-transform:none !important;
+    letter-spacing:normal !important;
+    font-family:'IBM Plex Sans', sans-serif !important;
+    font-size:0.82rem !important;
+    color:#9AA5B1 !important;
+  }
+  .audit-consent input{width:16px; height:16px; margin-top:2px; accent-color:var(--cta); flex-shrink:0;}
+  .audit-consent a{color:var(--circuit); text-decoration:underline;}
+  .form-submit{width:100%; text-align:center;}
+  .form-note{
+    font-size:0.78rem;
+    color:#7A8492;
+    margin-top:-6px;
+  }
+  @media(max-width:860px){
+    .audit-grid{grid-template-columns:1fr; gap:36px;}
+  }
+
+  /* ---------- WHATSAPP FLOATING BUTTON (mobile) ---------- */
+  .wa-float{
+    display:none;
+    position:fixed;
+    bottom:20px; right:20px;
+    width:56px; height:56px;
+    background:var(--cta);
+    border-radius:50%;
+    align-items:center; justify-content:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    z-index:80;
+  }
+  .wa-float svg{width:27px; height:27px; fill:var(--white);}
+  @media(max-width:860px){
+    .wa-float{display:flex;}
+  }
+
+  .reveal{opacity:1; transform:none;}
+  html.js .reveal{opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease;}
+  html.js .reveal.visible{opacity:1; transform:translateY(0);}
+
+  @media(prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    html.js .reveal{opacity:1; transform:none; transition:none;}
+    .pulse-glow{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">
+      <!-- REEMPLAZA este src por tu logo real: sube un archivo cuadrado 500x500px -->
+      <img class="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' rx='14' fill='%23141E42'/%3E%3Crect x='4' y='4' width='92' height='92' rx='10' fill='none' stroke='%23F5A623' stroke-dasharray='5 4' stroke-width='2'/%3E%3Ctext x='50' y='56' font-size='16' fill='%23F5A623' text-anchor='middle' font-family='monospace'%3ELOGO%3C/text%3E%3C/svg%3E" alt="Impulso Crea">
+      Impulso Crea
+    </div>
+    <div class="nav-links">
+      <a href="#proceso">Proceso</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#faq">Preguntas</a>
+    </div>
+    <a href="#auditoria" class="nav-cta">Agenda tu diagnóstico</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Sistemas de adquisición para negocios</div>
+    <h1>Tu marketing no necesita más clics. Necesita un sistema que los <em>convierta</em>.</h1>
+    <p class="lead">Diseñamos y automatizamos el camino completo entre un anuncio y una venta cerrada: captura, seguimiento, nutrición y reporte — sin que tu equipo tenga que perseguir cada lead a mano.</p>
+    <div class="cta-row">
+      <a href="#auditoria" class="btn-primary">Agenda tu diagnóstico gratuito</a>
+      <a href="#proceso" class="btn-ghost">Ver cómo funciona ↓</a>
+    </div>
+
+    <div class="circuit-box reveal">
+      <svg viewBox="0 0 1100 220" xmlns="http://www.w3.org/2000/svg">
+        <path id="flowpath" class="circuit-path" d="M 90 110 C 250 40, 330 40, 460 110 S 690 180, 820 110 S 970 40, 1010 110" />
+
+        <!-- nodes -->
+        <g>
+          <circle class="node-circle active" cx="90" cy="110" r="7"/>
+          <text x="90" y="150" text-anchor="middle" class="node-label on">TRÁFICO</text>
+          <text x="90" y="166" text-anchor="middle" class="node-sub">Ads · Contenido</text>
+        </g>
+        <g>
+          <circle class="node-circle" cx="460" cy="110" r="7"/>
+          <text x="460" y="150" text-anchor="middle" class="node-label">CAPTURA</text>
+          <text x="460" y="166" text-anchor="middle" class="node-sub">Formulario · WhatsApp</text>
+        </g>
+        <g>
+          <circle class="node-circle" cx="820" cy="110" r="7"/>
+          <text x="820" y="150" text-anchor="middle" class="node-label">NUTRICIÓN</text>
+          <text x="820" y="166" text-anchor="middle" class="node-sub">CRM · Secuencias</text>
+        </g>
+        <g>
+          <circle class="node-circle" cx="1010" cy="110" r="7"/>
+          <text x="1010" y="150" text-anchor="middle" class="node-label">CIERRE</text>
+          <text x="1010" y="166" text-anchor="middle" class="node-sub">Venta</text>
+        </g>
+
+        <!-- traveling pulse -->
+        <circle r="5" class="pulse-dot">
+          <animateMotion dur="4s" repeatCount="indefinite" path="M 90 110 C 250 40, 330 40, 460 110 S 690 180, 820 110 S 970 40, 1010 110" />
+        </circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper" id="problema">
+  <div class="wrap section-head reveal">
+    <div class="eyebrow">El problema</div>
+    <h2>Subes el ROAS. Las ventas no suben igual.</h2>
+  </div>
+  <div class="wrap">
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <span class="pain-num">/01</span>
+        <h3>Leads que se enfrían</h3>
+        <p>Un lead contactado en la primera hora convierte muchas más veces que uno contactado horas después. La mayoría de negocios tarda demasiado en responder.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-num">/02</span>
+        <h3>Procesos manuales</h3>
+        <p>Cada lead pasa por varias personas y hojas de cálculo antes de llegar a alguien que realmente pueda cerrar la venta.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-num">/03</span>
+        <h3>Reportes que no conectan</h3>
+        <p>Sabes cuánto gastaste en anuncios. No sabes con claridad cuánto de eso terminó siendo ingreso real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="auditoria">
+  <div class="wrap">
+    <div class="audit-grid">
+      <div class="audit-copy reveal">
+        <div class="eyebrow">Auditoría gratuita</div>
+        <h2>Antes de invertir más, veamos en qué se está yendo tu presupuesto</h2>
+        <p>Responde 3 preguntas rápidas. Te contactamos por WhatsApp con un primer diagnóstico de tu situación actual — sin costo, sin compromiso.</p>
+      </div>
+      <form class="audit-form reveal" id="auditForm">
+        <label>Nombre completo
+          <input type="text" name="nombre" required placeholder="Tu nombre">
+        </label>
+        <label>Correo o WhatsApp
+          <input type="text" name="contacto" required placeholder="tu@correo.com o tu número">
+        </label>
+        <label>¿Cuánto inviertes actualmente en ads al mes?
+          <select name="inversion" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option>Aún no invierto en ads</option>
+            <option>Menos de $500</option>
+            <option>$500 - $1.500</option>
+            <option>$1.500 - $5.000</option>
+            <option>Más de $5.000</option>
+          </select>
+        </label>
+        <label class="audit-consent">
+          <input type="checkbox" name="consentimiento" required>
+          <span>Acepto la <a href="privacidad.html" target="_blank">Política de Privacidad</a> y el tratamiento de mis datos.</span>
+        </label>
+        <button type="submit" class="btn-primary form-submit">Quiero mi auditoría gratis</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper" id="proceso">
+  <div class="wrap section-head reveal">
+    <div class="eyebrow">Cómo trabajamos</div>
+    <h2>Cuatro pasos, un solo sistema funcionando</h2>
+  </div>
+  <div class="wrap">
+    <div class="process-list">
+      <div class="proc-item reveal">
+        <div class="proc-num">01</div>
+        <h3>Diagnóstico</h3>
+        <p>Mapeamos tu embudo actual y encontramos dónde se están perdiendo los leads.</p>
+      </div>
+      <div class="proc-item reveal">
+        <div class="proc-num">02</div>
+        <h3>Diseño del sistema</h3>
+        <p>Definimos los flujos de captura, automatización y seguimiento para tu negocio.</p>
+      </div>
+      <div class="proc-item reveal">
+        <div class="proc-num">03</div>
+        <h3>Implementación</h3>
+        <p>Conectamos CRM, anuncios y automatizaciones en una sola operación.</p>
+      </div>
+      <div class="proc-item reveal">
+        <div class="proc-num">04</div>
+        <h3>Optimización continua</h3>
+        <p>Ajustamos con datos reales cada semana, no cada trimestre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resultados" style="padding-top:0; padding-bottom:0;">
+  <div class="stats-row reveal">
+    <div class="stat">
+      <span class="num">&lt; 2 min</span>
+      <span class="label">Tiempo objetivo de primera respuesta a un lead</span>
+    </div>
+    <div class="stat">
+      <span class="num">3–4 sem</span>
+      <span class="label">Tiempo típico de implementación del sistema completo</span>
+    </div>
+    <div class="stat">
+      <span class="num">100%</span>
+      <span class="label">De los leads con seguimiento automático, sin excepción</span>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper">
+  <div class="wrap section-head reveal">
+    <div class="eyebrow">La diferencia</div>
+    <h2>Agencia de paid media vs. Impulso Crea</h2>
+  </div>
+  <div class="wrap reveal">
+    <table class="compare">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Agencia tradicional</th>
+          <th class="col-us">Impulso Crea</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Enfoque</td>
+          <td>Gestiona campañas</td>
+          <td class="col-us">Diseña el sistema completo de adquisición</td>
+        </tr>
+        <tr>
+          <td>Qué entrega</td>
+          <td>Clics, alcance, impresiones</td>
+          <td class="col-us">Clientes calificados dentro de tu CRM</td>
+        </tr>
+        <tr>
+          <td>Después del clic</td>
+          <td>El lead se pierde en la bandeja de entrada</td>
+          <td class="col-us">Seguimiento y nutrición automáticos 24/7</td>
+        </tr>
+        <tr>
+          <td>Reportes</td>
+          <td>Métricas de plataforma (CTR, CPC)</td>
+          <td class="col-us">Inversión conectada directamente a ingresos</td>
+        </tr>
+        <tr>
+          <td>Relación</td>
+          <td>Mes a mes, rota fácilmente</td>
+          <td class="col-us">Socio de operación a largo plazo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="banner" id="contacto">
+  <div class="wrap reveal">
+    <h2>¿Listo para dejar de perseguir leads?</h2>
+    <a href="#auditoria" class="btn-primary">Agenda tu diagnóstico gratuito</a>
+    <div class="scarcity">Cupos limitados por mes para garantizar calidad de implementación</div>
+  </div>
+</section>
+
+<section class="on-paper" id="faq">
+  <div class="wrap section-head reveal">
+    <div class="eyebrow">Preguntas frecuentes</div>
+    <h2>Antes de agendar</h2>
+  </div>
+  <div class="wrap reveal" style="max-width:780px;">
+    <div class="faq-item">
+      <button class="faq-q">¿Necesito ya tener campañas activas? <span class="plus">+</span></button>
+      <div class="faq-a"><p>No. Podemos construir el sistema de captura y automatización primero, y encender o ajustar la pauta después. Muchos clientes llegan sin campañas activas.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">¿Trabajan con cualquier CRM? <span class="plus">+</span></button>
+      <div class="faq-a"><p>Trabajamos con las herramientas que ya usas cuando es posible, y recomendamos una si aún no tienes ninguna. La automatización se adapta a tu operación, no al revés.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">¿Cuánto tiempo toma implementar el sistema? <span class="plus">+</span></button>
+      <div class="faq-a"><p>Depende de la complejidad, pero la mayoría de sistemas quedan operando entre 3 y 4 semanas después del diagnóstico.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">¿Esto reemplaza a mi equipo de ventas? <span class="plus">+</span></button>
+      <div class="faq-a"><p>No. El sistema hace el trabajo repetitivo — capturar, calificar, dar seguimiento — para que tu equipo dedique su tiempo a cerrar, no a perseguir.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">¿Qué pasa si ya tengo agencia de paid media? <span class="plus">+</span></button>
+      <div class="faq-a"><p>Podemos trabajar en paralelo, enfocándonos solo en la automatización y el seguimiento, para que la inversión que ya haces en pauta rinda más.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <img class="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' rx='14' fill='%23141E42'/%3E%3Crect x='4' y='4' width='92' height='92' rx='10' fill='none' stroke='%23F5A623' stroke-dasharray='5 4' stroke-width='2'/%3E%3Ctext x='50' y='56' font-size='16' fill='%23F5A623' text-anchor='middle' font-family='monospace'%3ELOGO%3C/text%3E%3C/svg%3E" alt="Impulso Crea">
+          Impulso Crea
+        </div>
+        <p>Sistemas de marketing, procesos y automatización para negocios que quieren vender de forma predecible.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Navegación</h4>
+          <a href="#proceso">Proceso</a>
+          <a href="#resultados">Resultados</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="foot-col">
+          <h4>Contacto</h4>
+          <a href="mailto:jonathan@impuloscrea.com">jonathan@impuloscrea.com</a>
+          <a href="https://wa.me/573024467618" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="#auditoria">Agenda una llamada</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Impulso Crea. Todos los derechos reservados.</span>
+      <div class="foot-legal">
+        <a href="privacidad.html">Privacidad</a>
+        <a href="terminos.html">Términos y condiciones</a>
+        <a href="cookies.html">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/573024467618?text=Hola%2C%20quiero%20más%20información%20sobre%20Impulso%20Crea" target="_blank" rel="noopener" class="wa-float" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.94.55 3.75 1.5 5.29L2 22l4.86-1.46A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.62 0-3.13-.46-4.41-1.26l-.32-.19-3.06.92.94-2.98-.2-.32A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.34-5.94c-.24-.12-1.4-.69-1.62-.77-.22-.08-.38-.12-.54.12-.16.24-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.4-.57 1.6-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.46-.28z"/></svg>
+</a>
+
+<script>
+  // Marca que el JS corrió correctamente antes de activar animaciones de aparición
+  document.documentElement.classList.add('js');
+
+  // Formulario de auditoría → envía los datos por WhatsApp
+  const auditForm = document.getElementById('auditForm');
+  if(auditForm){
+    auditForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const data = new FormData(auditForm);
+      const nombre = data.get('nombre');
+      const contacto = data.get('contacto');
+      const inversion = data.get('inversion');
+      const mensaje = `Hola, soy ${nombre}. Quiero solicitar mi auditoría gratuita.\nContacto: ${contacto}\nInversión actual en ads: ${inversion}`;
+      window.open(`https://wa.me/573024467618?text=${encodeURIComponent(mensaje)}`, '_blank');
+    });
+  }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const btn = item.querySelector('.faq-q');
+    const ans = item.querySelector('.faq-a');
+    btn.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o=>{
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
