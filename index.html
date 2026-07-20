@@ -83,7 +83,8 @@
     display:flex; align-items:center; gap:10px;
   }
   /* Espacio reservado para el logo real. Sube un archivo cuadrado de 500x500px
-     (PNG con fondo transparente) y reemplaza el atributo src de .logo-img más abajo. */
+     (PNG con fondo transparente) llamado "logo.png" en la misma carpeta que este
+     index.html — el atributo src de .logo-img ya apunta a ese nombre. */
   .logo-img{
     width:34px; height:34px;
     border-radius:7px;
@@ -553,8 +554,8 @@
 <header>
   <nav>
     <div class="logo">
-      <!-- REEMPLAZA este src por tu logo real: sube un archivo cuadrado 500x500px -->
-      <img class="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' rx='14' fill='%23141E42'/%3E%3Crect x='4' y='4' width='92' height='92' rx='10' fill='none' stroke='%23F5A623' stroke-dasharray='5 4' stroke-width='2'/%3E%3Ctext x='50' y='56' font-size='16' fill='%23F5A623' text-anchor='middle' font-family='monospace'%3ELOGO%3C/text%3E%3C/svg%3E" alt="Impulso Crea">
+      <!-- Logo real: sube un archivo llamado "logo.png" (cuadrado, 500x500px, fondo transparente) en la misma carpeta -->
+      <img class="logo-img" src="logo.png" alt="Impulso Crea">
       Impulso Crea
     </div>
     <div class="nav-links">
@@ -645,7 +646,10 @@
         <h2>Antes de invertir más, veamos en qué se está yendo tu presupuesto</h2>
         <p>Responde 3 preguntas rápidas. Te contactamos por WhatsApp con un primer diagnóstico de tu situación actual — sin costo, sin compromiso.</p>
       </div>
-      <form class="audit-form reveal" id="auditForm">
+      <form class="audit-form reveal" id="auditForm" action="https://formsubmit.co/impulsocrea1@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nueva solicitud de auditoría gratuita — Impulso Crea">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="gracias.html">
         <label>Nombre completo
           <input type="text" name="nombre" required placeholder="Tu nombre">
         </label>
@@ -807,7 +811,7 @@
     <div class="foot-grid">
       <div class="foot-brand">
         <div class="logo">
-          <img class="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' rx='14' fill='%23141E42'/%3E%3Crect x='4' y='4' width='92' height='92' rx='10' fill='none' stroke='%23F5A623' stroke-dasharray='5 4' stroke-width='2'/%3E%3Ctext x='50' y='56' font-size='16' fill='%23F5A623' text-anchor='middle' font-family='monospace'%3ELOGO%3C/text%3E%3C/svg%3E" alt="Impulso Crea">
+          <img class="logo-img" src="logo.png" alt="Impulso Crea">
           Impulso Crea
         </div>
         <p>Sistemas de marketing, procesos y automatización para negocios que quieren vender de forma predecible.</p>
@@ -821,7 +825,7 @@
         </div>
         <div class="foot-col">
           <h4>Contacto</h4>
-          <a href="mailto:jonathan@impuloscrea.com">jonathan@impuloscrea.com</a>
+          <a href="mailto:jonathan@impulsocrea.com">jonathan@impulsocrea.com</a>
           <a href="https://wa.me/573024467618" target="_blank" rel="noopener">WhatsApp</a>
           <a href="#auditoria">Agenda una llamada</a>
         </div>
@@ -846,19 +850,9 @@
   // Marca que el JS corrió correctamente antes de activar animaciones de aparición
   document.documentElement.classList.add('js');
 
-  // Formulario de auditoría → envía los datos por WhatsApp
-  const auditForm = document.getElementById('auditForm');
-  if(auditForm){
-    auditForm.addEventListener('submit', function(e){
-      e.preventDefault();
-      const data = new FormData(auditForm);
-      const nombre = data.get('nombre');
-      const contacto = data.get('contacto');
-      const inversion = data.get('inversion');
-      const mensaje = `Hola, soy ${nombre}. Quiero solicitar mi auditoría gratuita.\nContacto: ${contacto}\nInversión actual en ads: ${inversion}`;
-      window.open(`https://wa.me/573024467618?text=${encodeURIComponent(mensaje)}`, '_blank');
-    });
-  }
+  // El formulario de auditoría envía los datos directamente a impulsocrea1@gmail.com
+  // vía FormSubmit (action="https://formsubmit.co/impulsocrea1@gmail.com" en el <form>).
+  // No se necesita JS para el envío; el navegador hace un POST normal.
 
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(item=>{
