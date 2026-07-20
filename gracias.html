@@ -3,54 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gracias — Impulso Crea</title>
+<title>Solicitud recibida — Impulso Crea</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#0B1330;
-    --white:#F5F7FA;
+    --ink-2:#141E42;
+    --ink-line:#28355C;
+    --paper:#EAF0F7;
+    --paper-2:#D7E1F0;
+    --graphite:#4F5B76;
+    --ink-text:#101B33;
     --signal:#F5A623;
+    --signal-dim:#B97A12;
+    --circuit:#29C7F0;
     --cta:#3DA35D;
     --cta-hover:#4CBE6D;
+    --white:#F5F7FA;
+    --radius:2px;
+    --maxw:1180px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
     background:var(--ink);
     color:var(--white);
     font-family:'IBM Plex Sans', sans-serif;
-    min-height:100vh;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    border-bottom:1px solid var(--ink-line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo-img{width:34px; height:34px; border-radius:7px; object-fit:cover;}
+  .back{color:#B9C2CC; font-size:0.9rem;}
+  .back:hover{color:var(--white);}
+
+  /* ---------- HERO CONFIRMATION ---------- */
+  .confirm{
+    padding:90px 0 70px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(245,166,35,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(41,199,240,0.10), transparent 60%);
+  }
+  .check-badge{
+    width:76px; height:76px;
+    margin:0 auto 30px;
+    border-radius:50%;
+    background:rgba(61,163,93,0.12);
+    border:1.5px solid var(--cta);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .check-badge svg{width:34px; height:34px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--signal);
     display:flex;
     align-items:center;
     justify-content:center;
-    text-align:center;
-    padding:24px;
+    gap:0.6em;
+    margin-bottom:1.2em;
   }
-  .box{max-width:480px;}
-  h1{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:clamp(1.6rem,4vw,2.2rem);
-    margin-bottom:16px;
-  }
-  h1 em{font-style:normal; color:var(--signal);}
-  p{color:#C7CED6; margin-bottom:28px; line-height:1.6;}
-  a.btn{
+  .eyebrow::before, .eyebrow::after{
+    content:"";
+    width:22px;
+    height:1px;
+    background:var(--signal);
     display:inline-block;
+  }
+  .confirm h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:clamp(1.9rem, 4.4vw, 2.9rem);
+    letter-spacing:-0.01em;
+    max-width:18ch;
+    margin:0 auto 20px;
+  }
+  .confirm h1 em{font-style:normal; color:var(--signal);}
+  .confirm p.lead{
+    max-width:46ch;
+    margin:0 auto 40px;
+    font-size:1.04rem;
+    color:#C7CED6;
+  }
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap; justify-content:center;}
+  .btn-primary{
     background:var(--cta);
     color:var(--white);
     font-weight:600;
-    padding:14px 26px;
-    border-radius:2px;
-    text-decoration:none;
+    padding:15px 26px;
+    border-radius:var(--radius);
+    font-size:0.96rem;
+    transition:transform .15s ease, background .15s ease;
+    display:inline-flex; align-items:center; gap:10px;
   }
-  a.btn:hover{background:var(--cta-hover);}
+  .btn-primary:hover{background:var(--cta-hover); transform:translateY(-1px);}
+  .btn-primary svg{width:18px; height:18px;}
+  .btn-ghost{
+    border:1px solid var(--ink-line);
+    color:var(--white);
+    padding:15px 26px;
+    border-radius:var(--radius);
+    font-size:0.96rem;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-ghost:hover{border-color:var(--circuit); background:rgba(41,199,240,0.10);}
+
+  /* ---------- WHAT'S NEXT ---------- */
+  .on-paper{background:var(--paper); color:var(--ink-text);}
+  .next{padding:70px 0 80px;}
+  .next .section-head{max-width:640px; margin:0 auto 48px; text-align:center;}
+  .next .eyebrow{color:var(--signal-dim); justify-content:center;}
+  .next .eyebrow::before, .next .eyebrow::after{background:var(--signal-dim);}
+  .next h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:clamp(1.4rem,2.6vw,1.9rem);
+  }
+  .step-list{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--ink-line);
+    border:1px solid var(--paper-2);
+  }
+  .step-item{
+    background:var(--paper);
+    padding:30px 24px;
+  }
+  .step-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--signal-dim);
+    margin-bottom:14px;
+  }
+  .step-item h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:1.02rem;
+    margin-bottom:8px;
+  }
+  .step-item p{font-size:0.9rem; color:var(--graphite);}
+  .step-item.active{background:#fff;}
+  .step-item.active .step-num{color:var(--cta);}
+  @media(max-width:860px){
+    .step-list{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:560px){
+    .step-list{grid-template-columns:1fr;}
+    .cta-row{flex-direction:column; align-items:center;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:40px 0; border-top:1px solid var(--ink-line);}
+  .foot-wrap{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; align-items:center;
+  }
+  .foot-links{display:flex; gap:24px; flex-wrap:wrap;}
+  .foot-links a{color:#9AA5B1; font-size:0.85rem;}
+  .foot-links a:hover{color:var(--white);}
+  .copy{color:#5C6771; font-size:0.8rem;}
 </style>
 </head>
 <body>
-  <div class="box">
-    <h1>¡Recibimos tu <em>solicitud</em>!</h1>
-    <p>Gracias por escribirnos. Vamos a revisar tu información y te contactaremos pronto para agendar tu auditoría gratuita.</p>
-    <a class="btn" href="index.html">Volver al sitio</a>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <img class="logo-img" src="logo.png" alt="Impulso Crea">
+      Impulso Crea
+    </a>
+    <a href="index.html" class="back">← Volver al sitio</a>
+  </nav>
+</header>
+
+<section class="confirm">
+  <div class="wrap">
+    <div class="check-badge">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 12.5L9.5 18L20 6" stroke="#3DA35D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="eyebrow">Solicitud recibida</div>
+    <h1>Tu auditoría gratuita <em>ya está en camino</em></h1>
+    <p class="lead">Recibimos tus datos correctamente. Nuestro equipo va a revisar tu situación actual y te va a contactar con el primer diagnóstico — normalmente en menos de 24 horas hábiles.</p>
+    <div class="cta-row">
+      <a href="https://wa.me/573024467618?text=Hola%2C%20acabo%20de%20llenar%20el%20formulario%20de%20auditor%C3%ADa%20y%20quiero%20adelantar%20la%20conversaci%C3%B3n" target="_blank" rel="noopener" class="btn-primary">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.94.55 3.75 1.5 5.29L2 22l4.86-1.46A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.62 0-3.13-.46-4.41-1.26l-.32-.19-3.06.92.94-2.98-.2-.32A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.34-5.94c-.24-.12-1.4-.69-1.62-.77-.22-.08-.38-.12-.54.12-.16.24-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.4-.57 1.6-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.46-.28z"/></svg>
+        Adelantar por WhatsApp
+      </a>
+      <a href="index.html" class="btn-ghost">Volver al sitio</a>
+    </div>
   </div>
+</section>
+
+<section class="on-paper next">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Qué sigue</div>
+      <h2>Así es como vamos a trabajar tu caso</h2>
+    </div>
+    <div class="step-list">
+      <div class="step-item active">
+        <div class="step-num">01</div>
+        <h3>Diagnóstico</h3>
+        <p>Revisamos la información que enviaste y mapeamos tu situación actual.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <h3>Contacto</h3>
+        <p>Te escribimos por WhatsApp o correo para agendar una llamada breve.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <h3>Propuesta</h3>
+        <p>Te mostramos qué sistema tendría más sentido para tu negocio.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <h3>Implementación</h3>
+        <p>Si decides avanzar, el sistema queda operando en 3–4 semanas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-wrap">
+    <div class="foot-links">
+      <a href="index.html">Inicio</a>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="terminos.html">Términos y condiciones</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
+    <span class="copy">© 2026 Impulso Crea</span>
+  </div>
+</footer>
+
 </body>
 </html>
